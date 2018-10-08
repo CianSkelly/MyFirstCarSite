@@ -11,9 +11,6 @@ namespace MyFirstCarSite.Models.ViewModels
         public IEnumerable<Vehicle> Vehicles { get; set; }
         public PagingInfo PagingInfo { get; set; }
         public string CurrentCategory { get; set; }
-        //test for git push
-        //2nd test for git changes
-        //another change
     }
 
 }

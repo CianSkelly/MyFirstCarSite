@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using MyFirstCarSite.Models.ViewModels;
-using System.Collections.Generic;
 
 namespace MyFirstCarSite.Infrastructure
 {
@@ -24,7 +23,6 @@ namespace MyFirstCarSite.Infrastructure
 
         [ViewContext]
         [HtmlAttributeNotBound]
-
         public ViewContext ViewContext { get; set; }
 
         public PagingInfo PageModel { get; set; }

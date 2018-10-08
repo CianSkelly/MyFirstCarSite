@@ -37,7 +37,7 @@ namespace MyFirstCarSite
             {
                 routes.MapRoute(
                     name: null,
-                    template: "{vehiclecategory}/Page{vehiclePage:int}",
+                    template: "{make}/Page{vehiclePage:int}",
                     defaults: new { controller = "Vehicle", action = "List" }
                     );
 
@@ -50,7 +50,7 @@ namespace MyFirstCarSite
 
                 routes.MapRoute(
                     name: null,
-                    template: "{vehiclecategory}",
+                    template: "{make}",
                     defaults: new
                     {
                         controller = "Vehicle",
