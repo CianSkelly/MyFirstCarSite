@@ -18,6 +18,7 @@ namespace MyFirstCarSite.Components
 
         public IViewComponentResult Invoke()
         {
+            ViewBag.SelectedVehicleCategory = RouteData?.Values["vehicleCategory"];
             return View(repository.Vehicles
                 .Select(x => x.VehicleCategory)
                 .Distinct()

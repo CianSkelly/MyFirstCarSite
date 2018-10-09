@@ -3,17 +3,17 @@
 <a class="btn btn-block btn-secondary" 
    asp-action="List" 
    asp-controller="Vehicle" 
-   asp-route-make="">
+   asp-route-vehicleCategory="">
     Home
 </a>
 
-@foreach (string make in Model)
+@foreach (string vehicleCategory in Model)
 {
-    <a class="btn btn-block btn-secondary"
+    <a class="btn btn-block @(vehicleCategory == ViewBag.SelectedVehicleCategory ? "btn-primary": "btn-secondary")"
        asp-action="List"
        asp-controller="Vehicle"
-       asp-route-make="@make"
+       asp-route-vehicleCategory="@vehicleCategory"
        asp-route-vehiclePage="1">
-        @make
+        @vehicleCategory
     </a>
 }
