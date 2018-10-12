@@ -30,8 +30,10 @@ namespace MyFirstCarSite.Controllers
                 {
                     CurrentPage = vehiclePage,
                     ItemsPerPage = PageSize,
-                    TotalItems = repository.Vehicles.Count()
-                },
+                    TotalItems = make == null ? 
+                    repository.Vehicles.Count() :
+                    repository.Vehicles.Where(e => e.Make == make).Count()
+                    },
                 CurrentCategory = make
             });
     }

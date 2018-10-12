@@ -7,6 +7,7 @@ using MyFirstCarSite.Models;
 using Xunit;
 using System.Text;
 using MyFirstCarSite.Models.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MyFirstCarSite.Tests
 {
@@ -95,6 +96,39 @@ namespace MyFirstCarSite.Tests
             Assert.Equal(2, result.Length);
             Assert.True(result[0].Make == "V2" && result[0].VehicleCategory == "Cat2");
             Assert.True(result[1].Make == "V4" && result[1].VehicleCategory == "Cat2");
+        }
+
+        [Fact]
+        public void Generate_Category_Specific_Vehicle_Count()
+        {
+            //Arrange
+            Mock<IVehicleRepository> mock = new Mock<IVehicleRepository>();
+            mock.Setup(m => m.Vehicles).Returns((new Vehicle[]
+            {
+                new Vehicle { VehicleID = 1, Make = "V1", VehicleCategory = "Cat1"},
+                new Vehicle { VehicleID = 2, Make = "V2", VehicleCategory = "Cat2"},
+                new Vehicle { VehicleID = 3, Make = "V3", VehicleCategory = "Cat1"},
+                new Vehicle { VehicleID = 4, Make = "V4", VehicleCategory = "Cat2"},
+                new Vehicle { VehicleID = 5, Make = "V5", VehicleCategory = "Cat3"}
+            }).AsQueryable<Vehicle>());
+
+            
+            VehicleController target = new VehicleController(mock.Object);
+            target.PageSize = 3;
+
+            Func<ViewResult, VehiclesListViewModel> GetModel = result => result?.ViewData?.Model as VehiclesListViewModel;
+
+            //Action
+            int? res1 = GetModel(target.List("Cat1"))?.PagingInfo.TotalItems;
+            int? res2 = GetModel(target.List("Cat2"))?.PagingInfo.TotalItems;
+            int? res3 = GetModel(target.List("Cat3"))?.PagingInfo.TotalItems;
+            int? resAll = GetModel(target.List(null))?.PagingInfo.TotalItems;
+
+            //Assert
+            Assert.Equal(2, res1);
+            Assert.Equal(2, res2);
+            Assert.Equal(1, res3);
+            Assert.Equal(5, resAll);
         }
     }
 }
