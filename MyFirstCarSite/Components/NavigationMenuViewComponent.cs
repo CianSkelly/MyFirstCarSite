@@ -18,9 +18,9 @@ namespace MyFirstCarSite.Components
 
         public IViewComponentResult Invoke()
         {
-            ViewBag.SelectedVehicleCategory = RouteData?.Values["vehicleCategory"];
+            ViewBag.SelectedVehicleCategory = RouteData?.Values["make"];
             return View(repository.Vehicles
-                .Select(x => x.VehicleCategory)
+                .Select(x => x.Make)
                 .Distinct()
                 .OrderBy(x => x));
         }
